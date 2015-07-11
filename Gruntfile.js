@@ -71,7 +71,7 @@ module.exports = function (grunt) {
         },
         files: [{
           dest: 'dest/separator.json',
-          src: ['test/separator/*_en_CA.json']
+          src: ['test/separator/**/*_en_CA.json']
         }]
       },
 
@@ -79,10 +79,8 @@ module.exports = function (grunt) {
         options: {
           baseKey: 'root'
         },
-        files: [{
-          dest: 'dest/basekey.json',
-          src: ['test/basekey/*_en_CA.json']
-        }]
+        dest: 'dest/basekey.json',
+        src: ['test/basekey/*_en_CA.json']
       }
     },
 

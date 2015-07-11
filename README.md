@@ -39,7 +39,7 @@ Therefore, given the following JSON file:
       "subkey1": "sub key 1 value",
       "subkey2": 
       {
-        "subsubkey1: "sub sub key 1 value"
+        "subsubkey1": "sub sub key 1 value"
       }
     }
 }   
@@ -82,16 +82,32 @@ A base key to use as a prefix to all flattened keys.
 
 ### Usage Examples
 
+The following example demonstrates how to generate multiple flattened JSON files from sets of one or more JSON files.
+
 ```js
 flatten: {
   main: {
     files: [
-      // flattens all JSON files directly under path that end in '_en_CA.json' to a file under dest called output.json
-      {expand: true, src: ['path/*_en_CA.json'], dest: 'dest/output.json'},
+      // flattens all JSON files directly under path that end in '_en_CA.json' to a file under dest called messages_en_CA.json
+      {expand: true, src: ['path/*_en_CA.json'], dest: 'dest/messages_en_CA.json'},
 
-      // flattens all JSON files under path that end in '_en_CA.json' to a file under dest called output.json
-      {expand: true, src: ['path/**/*_en_CA.json'], dest: 'dest/output.json'}
+      // flattens all JSON files under path that end in '_fr_CA.json' to a file under dest called messages_fr_CA.json
+      {expand: true, src: ['path/**/*_fr_CA.json'], dest: 'dest/messages_fr_CA.json'}
     ],
+  },
+},
+```
+
+The following example demonstrates how to generate a single flattened JSON file with a key separator of `:`.
+
+```js
+flatten: {
+  main: {
+    options: {
+      separator: ':'
+    }
+    src: ['path/*.json'], 
+    dest: 'dest/messages.json'}
   },
 },
 ```
