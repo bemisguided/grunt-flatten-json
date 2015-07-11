@@ -123,7 +123,7 @@ flatten_json: {
   main: {
     options: {
       separator: ':'
-    }
+    },
     src: ['path/*.json'], 
     dest: 'dest/messages.json'}
   },
@@ -148,7 +148,7 @@ flatten_json: {
   main: {
     options: {
       baseKey: 'myBase'
-    }
+    },
     src: ['path/*.json'], 
     dest: 'dest/messages.json'}
   },
@@ -195,7 +195,7 @@ flatten_json: {
   main: {
     options: {
       keyFilter: 'key2'
-    }
+    },
     src: ['path/*.json'],
     dest: 'dest/messages.json'}
   },
@@ -218,7 +218,7 @@ flatten_json: {
   main: {
     options: {
       keyFilter: ['key2', 'key3']
-    }
+    },
     src: ['path/*.json'],
     dest: 'dest/messages.json'}
   },
@@ -242,7 +242,7 @@ flatten_json: {
       keyFilter: function(keyContext, key) {
         return /key3$/.test(keyContext) && key == 'key1';
       }
-    }
+    },
     src: ['path/*.json'],
     dest: 'dest/messages.json'}
   },
@@ -275,7 +275,7 @@ flatten_json: {
             return '{{' + v + '}}';
           });
       }
-    }
+    },
     src: ['path/*.json'],
     dest: 'dest/messages.json'}
   },

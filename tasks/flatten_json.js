@@ -8,6 +8,7 @@
  */
 
 var chalk = require('chalk');
+var stringify = require('canonical-json');
 
 module.exports = function (grunt) {
 
@@ -28,12 +29,13 @@ module.exports = function (grunt) {
 
       filePair.src.forEach(function (src) {
         grunt.verbose.writeln('Reading JSON file ' + chalk.green(src));
-        var json = grunt.file.readJSON(src, {encoding: options.encoding});
+        var data = grunt.file.read(src, {encoding: options.encoding});
+        var json = JSON.parse(_stripAllComments(data));
         _flattenObject(grunt, result, json, options.baseKey, options);
       });
 
       grunt.log.writeln('Flattened JSON file created ' + chalk.cyan(dest));
-      grunt.file.write(dest, JSON.stringify(result), {encoding: options.encoding});
+      grunt.file.write(dest, stringify(result), {encoding: options.encoding});
     });
   });
 
@@ -121,4 +123,19 @@ function _filterValue(grunt, keyContext, key, value, options) {
     return result;
   }
   return value;
+}
+
+
+function _stripAllComments(str) {
+  return str ? _stripBlockComments(_stripLineComments(str)) : '';
+}
+
+function _stripBlockComments(str) {
+  var re = /\/\*(?!\/)(.|[\r\n]|\n)+?\*\/\n?\n?/gm;
+  return str ? str.replace(re, '') : '';
+}
+
+function _stripLineComments(str) {
+  var re = /(^|[^\S\n])(?:\/\/)([\s\S]+?)$/gm;
+  return str ? str.replace(re, '') : '';
 }

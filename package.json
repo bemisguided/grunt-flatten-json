@@ -15,6 +15,7 @@
     "test": "grunt test"
   },
   "dependencies": {
+    "canonical-json": "0.0.4",
     "chalk": "^1.0.0"
   },
   "devDependencies": {
