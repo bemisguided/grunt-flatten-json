@@ -7,8 +7,6 @@
  * https://github.com/bemisguided/grunt-flatten-json/blob/master/LICENSE
  */
 
-var fs = require('fs');
-
 module.exports = {
 
   simple: function (test) {
@@ -30,6 +28,30 @@ module.exports = {
   basekey: function (test) {
     var result = require('../dest/basekey.json');
     var expected = require('./basekey/expected.json');
+
+    test.deepEqual(result, expected);
+    test.done();
+  },
+
+  keyfilter_string: function (test) {
+    var result = require('../dest/keyfilter_string.json');
+    var expected = require('./keyfilter_string/expected.json');
+
+    test.deepEqual(result, expected);
+    test.done();
+  },
+
+  keyfilter_array: function (test) {
+    var result = require('../dest/keyfilter_array.json');
+    var expected = require('./keyfilter_array/expected.json');
+
+    test.deepEqual(result, expected);
+    test.done();
+  },
+
+  keyfilter_function: function (test) {
+    var result = require('../dest/keyfilter_function.json');
+    var expected = require('./keyfilter_function/expected.json');
 
     test.deepEqual(result, expected);
     test.done();

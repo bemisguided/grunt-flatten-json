@@ -80,6 +80,12 @@ Default: `null`
 
 A base key to use as a prefix to all flattened keys.
 
+#### keyFilter
+Type: `String` | `Array` | `function(keyContext, key)`
+Default: `null`
+
+Either a specific key name, an array of key names or a function to exclude keys and their children from the flattened JSON results.
+
 ### Usage Examples
 
 #### Generate multiple flattened JSON files
@@ -150,4 +156,101 @@ The results of the might be something like the following:
   "myBase.key1.subkey1": "sub key 1 value",
   "myBase.key1.subkey2": "sub key 2 value"
 }   
+```
+
+#### Exclude keys
+
+Given the following JSON file:
+
+```js
+{
+  "key1":
+    {
+      "key1": "value 1",
+      "key2": "value 2"
+    },
+  "key2":
+    {
+      "key1": "value 1",
+      "key2": "value 2"
+    },
+  "key3":
+    {
+      "key1": "value 1",
+      "key2": "value 2"
+    }
+}
+```
+
+The following example demonstrates excluding all keys of a specific string:
+
+```js
+flatten_json: {
+  main: {
+    options: {
+      keyFilter: 'key2'
+    }
+    src: ['path/*.json'],
+    dest: 'dest/messages.json'}
+  },
+},
+```
+
+Would produce the following result:
+
+```js
+{
+  "key1.key1.key1": "value 1",
+  "key3.key1": "value 1",
+}
+```
+
+The following example demonstrates excluding all keys of an array of keys:
+
+```js
+flatten_json: {
+  main: {
+    options: {
+      keyFilter: ['key2', 'key3']
+    }
+    src: ['path/*.json'],
+    dest: 'dest/messages.json'}
+  },
+},
+```
+
+Would produce the following result:
+
+```js
+{
+  "key1.key1.key1": "value 1"
+}
+```
+
+The following example demonstrates using a function to exclude keys:
+
+```js
+flatten_json: {
+  main: {
+    options: {
+      keyFilter: function(keyContext, key) {
+        return /key3$/.test(keyContext) && key == 'key1';
+      }
+    }
+    src: ['path/*.json'],
+    dest: 'dest/messages.json'}
+  },
+},
+```
+
+Would produce the following result:
+
+```js
+{
+  "key1.key1.key1": "value 1",
+  "key1.key1.key2": "value 2",
+  "key2.key1": "value 1",
+  "key2.key2": "value 2",
+  "key3.key2": "value 2"
+}
 ```

@@ -81,6 +81,32 @@ module.exports = function (grunt) {
         },
         dest: 'dest/basekey.json',
         src: ['test/basekey/*_en_CA.json']
+      },
+
+      keyfilter_string: {
+        options: {
+          keyFilter: 'key3'
+        },
+        dest: 'dest/keyfilter_string.json',
+        src: ['test/keyfilter_string/*_en_CA.json']
+      },
+
+      keyfilter_array: {
+        options: {
+          keyFilter: ['key3', 'key4']
+        },
+        dest: 'dest/keyfilter_array.json',
+        src: ['test/keyfilter_array/*_en_CA.json']
+      },
+
+      keyfilter_function: {
+        options: {
+          keyFilter: function(keyContext, key) {
+            return /key3$/.test(keyContext) && key == 'key1';
+          }
+        },
+        dest: 'dest/keyfilter_function.json',
+        src: ['test/keyfilter_function/*_en_CA.json']
       }
     },
 
