@@ -200,7 +200,7 @@ Would produce the following result:
 
 ```js
 {
-  "key1.key1.key1": "value 1",
+  "key1.key1": "value 1",
   "key3.key1": "value 1",
 }
 ```
@@ -223,7 +223,7 @@ Would produce the following result:
 
 ```js
 {
-  "key1.key1.key1": "value 1"
+  "key1.key1": "value 1"
 }
 ```
 
@@ -247,8 +247,8 @@ Would produce the following result:
 
 ```js
 {
-  "key1.key1.key1": "value 1",
-  "key1.key1.key2": "value 2",
+  "key1.key1": "value 1",
+  "key1.key2": "value 2",
   "key2.key1": "value 1",
   "key2.key2": "value 2",
   "key3.key2": "value 2"
