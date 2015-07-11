@@ -13,18 +13,49 @@ module.exports = function (grunt) {
   grunt.loadTasks('tasks');
 
   // Load dependency tasks
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-release');
+  // rename the default name for grunt-release so we can use it as a target
+  grunt.renameTask('release', 'grunt_release');
 
   // Main grunt targets
-  grunt.registerTask('default', ['build']);
+  grunt.registerTask('default', ['test']);
   grunt.registerTask('test', ['jscs', 'jshint', 'flatten', 'nodeunit']);
+  grunt.registerTask('release', ['clean', 'test', 'grunt_release']);
 
   // Project Configuration
   grunt.initConfig({
 
-    // Main -----------------------------------------
+    // Clean ----------------------------------------
+
+    clean: {
+      all: ['dest/']
+    },
+
+    // Code Quality ---------------------------------
+
+    jscs: {
+      src: [
+        'tasks/**/*.js',
+        'test/**/*.js'
+      ],
+      options: {
+        esnext: true,
+        config: '.jscs.json'
+      }
+    },
+
+    jshint: {
+      all: [
+        'tasks/**/*.js',
+        'test/**/*.js'
+      ]
+    },
+
+    // Unit Tests -----------------------------------
 
     flatten: {
       simple: {
@@ -55,30 +86,20 @@ module.exports = function (grunt) {
       }
     },
 
-    // Code Quality ---------------------------------
-
-    jscs: {
-      src: [
-        'tasks/**/*.js',
-        'test/**/*.js'
-      ],
-      options: {
-        esnext: true,
-        config: '.jscs.json'
-      }
-    },
-
-    jshint: {
-      all: [
-        'tasks/**/*.js',
-        'test/**/*.js'
-      ]
-    },
-
-    // Unit Tests -----------------------------------
-
     nodeunit: {
       all: ['test/*.spec.js']
+    },
+
+    // Release --------------------------------------
+
+    grunt_release: {
+      options: {
+        commitMessage: 'Release of <%= version %>',
+        github: {
+          repo: 'bemisguided/grunt-flatten-json',
+          accessTokenVar: 'GITHUB_API_TOKEN'
+        }
+      }
     }
 
   });
