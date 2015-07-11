@@ -1,0 +1,14 @@
+{
+  "simple1": {
+    "key1": "value1",
+    "key2": "value2",
+    "key3": {
+      "key1": "value1 {property.name}",
+      "key2": "value2"
+    },
+    "key4": {
+      "key1": "value1",
+      "key2": "value2 {property.name}"
+    }
+  }
+}

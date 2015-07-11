@@ -22,7 +22,6 @@ module.exports = function (grunt) {
     });
     grunt.verbose.writeln('Options set: ' + chalk.green(JSON.stringify(options)));
 
-
     this.files.forEach(function (filePair) {
       var dest = filePair.dest;
       var result = {};
@@ -52,7 +51,7 @@ function _flattenObject(grunt, result, object, keyContext, options) {
     }
     var value = object[key];
     if (typeof value != 'object') {
-      result[keyCurrent] = value;
+      result[keyCurrent] = _filterValue(grunt, keyContext, key, value, options);
       return;
     }
     _flattenObject(grunt, result, value, keyCurrent, options);
@@ -67,7 +66,7 @@ function _filterKey(grunt, keyContext, key, options) {
 
   var underKey = '';
   if (keyContext) {
-    underKey = ' under key ' + chalk.red(keyContext);
+    underKey = ' under key ' + chalk.cyan(keyContext);
   }
 
   // Filter if the keyFilter is a string
@@ -99,4 +98,27 @@ function _filterKey(grunt, keyContext, key, options) {
     }
   }
   return true;
+}
+
+function _filterValue(grunt, keyContext, key, value, options) {
+  var valueFilter = options.valueFilter;
+  if (!valueFilter) {
+    return value;
+  }
+
+  if (typeof valueFilter !== 'function') {
+    return value;
+  }
+
+  var underKey = '';
+  if (keyContext) {
+    underKey = ' under key ' + chalk.cyan(keyContext) + chalk.cyan('.' + key);
+  }
+
+  var result = valueFilter(value);
+  if (result != value) {
+    grunt.verbose.writeln('Value filtered from ' + chalk.green(value) + ' to ' + chalk.red(result) + underKey);
+    return result;
+  }
+  return value;
 }

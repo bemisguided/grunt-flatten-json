@@ -86,6 +86,12 @@ Default: `null`
 
 Either a specific key name, an array of key names or a function to exclude keys and their children from the flattened JSON results.
 
+#### valueFilter
+Type: `function(value)`
+Default: `null`
+
+A function that filters all values processed during flattening and allows for re-writing.
+
 ### Usage Examples
 
 #### Generate multiple flattened JSON files
@@ -254,3 +260,26 @@ Would produce the following result:
   "key3.key2": "value 2"
 }
 ```
+
+#### Re-write values
+
+The following example demonstrates using a function to re-write the values during flattening:
+
+```js
+flatten_json: {
+  main: {
+    options: {
+      valueFilter: function (value) {
+        return value.replace(/\{([a-zA-Z0-9.]+)\}/gi,
+          function (match, v) {
+            return '{{' + v + '}}';
+          });
+      }
+    }
+    src: ['path/*.json'],
+    dest: 'dest/messages.json'}
+  },
+},
+```
+
+Which would convert value like `This is a {placeholder} value` to `This is a {{placeholder}} value`.

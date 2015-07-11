@@ -101,12 +101,25 @@ module.exports = function (grunt) {
 
       keyfilter_function: {
         options: {
-          keyFilter: function(keyContext, key) {
+          keyFilter: function (keyContext, key) {
             return /key3$/.test(keyContext) && key == 'key1';
           }
         },
         dest: 'dest/keyfilter_function.json',
         src: ['test/keyfilter_function/*_en_CA.json']
+      },
+
+      valuefilter_function: {
+        options: {
+          valueFilter: function (value) {
+            return value.replace(/\{([a-zA-Z0-9.]+)\}/gi,
+                function (match, v) {
+                  return '{{' + v + '}}';
+                });
+          }
+        },
+        dest: 'dest/valuefilter_function.json',
+        src: ['test/valuefilter_function/*_en_CA.json']
       }
     },
 

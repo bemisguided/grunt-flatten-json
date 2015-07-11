@@ -55,6 +55,14 @@ module.exports = {
 
     test.deepEqual(result, expected);
     test.done();
+  },
+
+  valuefilter_function: function (test) {
+    var result = require('../dest/valuefilter_function.json');
+    var expected = require('./valuefilter_function/expected.json');
+
+    test.deepEqual(result, expected);
+    test.done();
   }
 
 };
