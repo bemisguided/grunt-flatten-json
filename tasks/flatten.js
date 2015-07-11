@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 
     var options = this.options({
       encoding: grunt.file.defaultEncoding,
-      rootKey: null,
+      baseKey: null,
       separator: '.'
     });
     grunt.verbose.writeln('Options set: ' + chalk.green(JSON.stringify(options)));
@@ -28,7 +28,7 @@ module.exports = function (grunt) {
       filePair.src.forEach(function (src) {
         grunt.verbose.writeln('Reading JSON file ' + chalk.green(src));
         var json = grunt.file.readJSON(src, {encoding: options.encoding});
-        _flattenObject(result, json, options.rootKey, options.separator);
+        _flattenObject(result, json, options.baseKey, options.separator);
       });
 
       grunt.log.writeln('Flattened JSON file created ' + chalk.cyan(dest));

@@ -44,13 +44,13 @@ module.exports = function (grunt) {
         }]
       },
 
-      rootkey: {
+      basekey: {
         options: {
-          rootKey: 'root'
+          baseKey: 'root'
         },
         files: [{
-          dest: 'dest/rootkey.json',
-          src: ['test/rootkey/*_en_CA.json']
+          dest: 'dest/basekey.json',
+          src: ['test/basekey/*_en_CA.json']
         }]
       }
     },

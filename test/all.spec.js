@@ -24,15 +24,14 @@ module.exports = {
 
     test.deepEqual(result, expected);
     test.done();
+  },
+
+  basekey: function (test) {
+    var result = require('../dest/basekey.json');
+    var expected = require('./basekey/expected.json');
+
+    test.deepEqual(result, expected);
+    test.done();
   }
-  //,
-  //
-  //rootkey: function (test) {
-  //  var result = require('../dest/rootkey.json');
-  //  var expected = require('./rootkey/expected.json');
-  //
-  //  test.deepEqual(result, expected);
-  //  test.done();
-  //}
 
 };
