@@ -1,5 +1,5 @@
 {
-  "name": "grunt-contrib-copy",
+  "name": "grunt-flatten-json",
   "description": "Flatten one or more JSON files into a single-level file",
   "version": "0.0.1",
   "author": {
