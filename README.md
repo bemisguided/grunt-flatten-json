@@ -21,7 +21,7 @@ grunt.loadNpmTasks('grunt-flatten-json');
 
 ## Flatten JSON Task
 
-_Run this task with the `grunt flatten` command._
+_Run this task with the `grunt flatten_json` command._
 
 This task will combine one or more JSON files and flatten them into a single-level key.
 
@@ -72,7 +72,7 @@ The file encoding to read and write the JSON files with.
 Type: `String`  
 Default: `.`
 
-The key flattening separator to use.
+The flattening key separator to use.
 
 #### baseKey
 Type: `String`  
@@ -82,26 +82,32 @@ A base key to use as a prefix to all flattened keys.
 
 ### Usage Examples
 
+#### Generate multiple flattened JSON files
+
 The following example demonstrates how to generate multiple flattened JSON files from sets of one or more JSON files.
 
 ```js
-flatten: {
+flatten_json: {
   main: {
     files: [
-      // flattens all JSON files directly under path that end in '_en_CA.json' to a file under dest called messages_en_CA.json
+      // flattens all JSON files directly under path that end in '_en_CA.json' 
+      // to a file under dest called messages_en_CA.json
       {expand: true, src: ['path/*_en_CA.json'], dest: 'dest/messages_en_CA.json'},
 
-      // flattens all JSON files under path that end in '_fr_CA.json' to a file under dest called messages_fr_CA.json
+      // flattens all JSON files under path that end in '_fr_CA.json' 
+      // to a file under dest called messages_fr_CA.json
       {expand: true, src: ['path/**/*_fr_CA.json'], dest: 'dest/messages_fr_CA.json'}
     ],
   },
 },
 ```
 
+#### Specify a different key separator
+
 The following example demonstrates how to generate a single flattened JSON file with a key separator of `:`.
 
 ```js
-flatten: {
+flatten_json: {
   main: {
     options: {
       separator: ':'
@@ -110,4 +116,38 @@ flatten: {
     dest: 'dest/messages.json'}
   },
 },
+```
+
+The results of the might be something like the following:
+
+```js
+{
+  "key1:subkey1": "sub key 1 value",
+  "key1:subkey2": "sub key 2 value"
+}   
+```
+
+#### Specify a base key
+
+The following example demonstrates how to generate a single flattened JSON file with a base key.
+
+```js
+flatten_json: {
+  main: {
+    options: {
+      baseKey: 'myBase'
+    }
+    src: ['path/*.json'], 
+    dest: 'dest/messages.json'}
+  },
+},
+```
+
+The results of the might be something like the following:
+
+```js
+{
+  "myBase.key1.subkey1": "sub key 1 value",
+  "myBase.key1.subkey2": "sub key 2 value"
+}   
 ```

@@ -23,7 +23,7 @@ module.exports = function (grunt) {
 
   // Main grunt targets
   grunt.registerTask('default', ['test']);
-  grunt.registerTask('test', ['jscs', 'jshint', 'flatten', 'nodeunit']);
+  grunt.registerTask('test', ['jscs', 'jshint', 'flatten_json', 'nodeunit']);
   grunt.registerTask('release', ['clean', 'test', 'grunt_release']);
 
   // Project Configuration
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
 
     // Unit Tests -----------------------------------
 
-    flatten: {
+    flatten_json: {
       simple: {
         files: [{
           dest: 'dest/simple.json',

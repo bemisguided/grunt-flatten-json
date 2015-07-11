@@ -6,6 +6,7 @@
  * Licensed under the MIT license.
  * https://github.com/bemisguided/grunt-flatten-json/blob/master/LICENSE
  */
+
 var fs = require('fs');
 
 module.exports = {

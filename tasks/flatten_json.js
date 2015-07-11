@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
   var chalk = require('chalk');
 
-  grunt.registerMultiTask('flatten', 'Flatten one or more JSON files into a single-level file', function () {
+  grunt.registerMultiTask('flatten_json', 'Flatten one or more JSON files into a single-level file', function () {
 
     var options = this.options({
       encoding: grunt.file.defaultEncoding,
