@@ -1,7 +1,7 @@
 {
   "name": "grunt-flatten-json",
   "description": "Flatten one or more JSON files into a single-level file",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": {
     "name": "Martin Crawford",
     "url": "https://github.com/bemisguided/grunt-flatten-json"
