@@ -30,8 +30,13 @@ module.exports = function (grunt) {
       filePair.src.forEach(function (src) {
         grunt.verbose.writeln('Reading JSON file ' + chalk.green(src));
         var data = grunt.file.read(src, {encoding: options.encoding});
-        var json = JSON.parse(_stripAllComments(data));
-        _flattenObject(grunt, result, json, options.baseKey, options);
+        try {
+          var json = JSON.parse(_stripAllComments(data));
+          _flattenObject(grunt, result, json, options.baseKey, options);
+        } catch (e) {
+          grunt.log.writeln('Source JSON file is invalid ' + chalk.red(src));
+          throw e;
+        }
       });
 
       grunt.log.writeln('Flattened JSON file created ' + chalk.cyan(dest));
